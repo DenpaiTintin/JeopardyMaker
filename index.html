@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeopardy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Start screen: choose teams and features before the game starts -->
+  <div id="setup">
+    <div class="setup-box">
+      <h1 id="setup-title"></h1>
+
+      <section class="setup-section">
+        <h2>Lag</h2>
+        <label class="setup-row">
+          Antall lag
+          <select id="team-count"></select>
+        </label>
+        <div id="team-names"></div>
+      </section>
+
+      <section class="setup-section">
+        <h2>Valg</h2>
+        <label class="setup-row">
+          <input type="checkbox" id="opt-timer" />
+          Timer
+          <span class="setup-extra">
+            <input type="number" id="opt-timer-seconds" min="5" max="300" /> sekunder per spørsmål
+          </span>
+        </label>
+        <label class="setup-row">
+          <input type="checkbox" id="opt-dd" />
+          Daily Double
+          <span class="setup-extra">
+            <input type="number" id="opt-dd-count" min="1" max="5" /> stk. på brettet
+          </span>
+        </label>
+        <label class="setup-row">
+          <input type="checkbox" id="opt-final" />
+          Finalerunde
+          <span class="setup-extra" id="opt-final-note"></span>
+        </label>
+      </section>
+
+      <button id="start-btn">Start spillet</button>
+    </div>
+  </div>
+
+  <div id="game" class="hidden">
+    <h1 id="title"></h1>
+
+    <main id="board">
+      <div id="categories"></div>
+      <!-- The puzzle image sits behind the tiles and shows once they are answered -->
+      <div id="tiles"></div>
+    </main>
+
+    <section id="scoreboard"></section>
+
+    <button id="end-btn" class="hidden"></button>
+  </div>
+
+  <!-- The window shown when a tile is opened -->
+  <div id="modal" class="overlay hidden">
+    <div class="modal-content">
+      <div id="modal-category"></div>
+
+      <!-- Daily Double: choose team and wager before the question is shown -->
+      <div id="dd-stage" class="stage hidden">
+        <div class="dd-title">DAILY DOUBLE!</div>
+        <div class="stage-label">Hvilket lag valgte ruten?</div>
+        <div id="dd-teams" class="choice-row"></div>
+        <label class="stage-label">
+          Innsats: <input type="number" id="dd-wager" class="wager-input" min="5" />
+        </label>
+        <div id="dd-hint" class="hint"></div>
+        <div class="modal-buttons">
+          <button id="dd-start-btn">Vis spørsmålet</button>
+        </div>
+      </div>
+
+      <div id="question-stage" class="stage">
+        <div id="modal-timer" class="timer hidden"></div>
+        <div id="modal-question"></div>
+        <div id="modal-answer" class="hidden"></div>
+        <div id="modal-teams"></div>
+        <div class="modal-buttons">
+          <button id="reveal-btn">Vis svar</button>
+          <button id="close-btn">Lukk</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Final round and winner screen -->
+  <div id="final" class="overlay hidden">
+    <div id="final-content" class="modal-content"></div>
+  </div>
+
+  <script src="questions.js"></script>
+  <script src="game.js"></script>
+  <script src="final.js"></script>
+  <script src="setup.js"></script>
+</body>
+</html>

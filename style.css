@@ -1,0 +1,546 @@
+:root {
+  --blue: #060ce9;
+  --dark-blue: #000a7a;
+  --gold: #ffcc00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+  font-family: "Arial Black", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#game {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+h1 {
+  margin: 0;
+  text-align: center;
+  color: var(--gold);
+  font-size: 3rem;
+  text-shadow: 3px 3px 0 #000, 0 0 12px var(--blue);
+}
+
+/* ---------- Board ---------- */
+#board {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#categories,
+#tiles {
+  display: grid;
+}
+
+/* The puzzle image sits behind the tiles */
+#tiles {
+  flex: 1;
+  background-color: #000;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Black borders instead of gaps, so the image only shows through answered tiles */
+.category,
+.tile {
+  background: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px;
+  border: 3px solid #000;
+}
+
+.category {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  min-height: 80px;
+  overflow-wrap: anywhere;
+}
+
+.tile {
+  color: var(--gold);
+  font-size: 2.2rem;
+  min-height: 90px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.1s, background 0.6s, border-color 0.6s;
+}
+
+.tile:hover:not(.used) {
+  transform: scale(1.04);
+  background: #2a30ff;
+  position: relative;
+  z-index: 1;
+}
+
+/* An answered tile turns transparent so its part of the image shows */
+.tile.used {
+  background: transparent;
+  color: transparent;
+  cursor: default;
+}
+
+/* All tiles answered: remove the borders so the whole image shows */
+#tiles.complete .tile {
+  border-color: transparent;
+}
+
+/* ---------- Scoreboard ---------- */
+#scoreboard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.team {
+  background: var(--dark-blue);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 10px 20px;
+  text-align: center;
+  min-width: 140px;
+}
+
+.team-name {
+  font-size: 1rem;
+}
+
+.team-score {
+  font-size: 1.8rem;
+  color: var(--gold);
+}
+
+.team-score {
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.team-score:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.team-score.negative {
+  color: #ff5555;
+}
+
+.score-input {
+  width: 120px;
+  font-family: inherit;
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--gold);
+  background: #000;
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+}
+
+#end-btn {
+  align-self: center;
+  font-size: 1.4rem;
+  padding: 14px 36px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.06); }
+}
+
+/* ---------- Question window and final round ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--blue);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+/* Dark, semi-transparent box so the text stays readable over the image */
+.modal-content {
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 40px 32px;
+  background: rgba(0, 6, 60, 0.78);
+  border: 3px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+#modal-category {
+  color: var(--gold);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+#modal-question {
+  font-size: 3rem;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 #000;
+}
+
+#modal-answer {
+  font-size: 2.4rem;
+  color: var(--gold);
+  text-shadow: 3px 3px 0 #000;
+}
+
+#modal-teams {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.modal-team {
+  background: var(--dark-blue);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1.1rem;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--gold);
+  color: #000;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+.btn-right {
+  background: #2ecc40;
+  color: #fff;
+  padding: 6px 14px;
+}
+
+.btn-wrong {
+  background: #ff4136;
+  color: #fff;
+  padding: 6px 14px;
+}
+
+/* The selected button gets a white outline, the others are dimmed */
+.btn-right,
+.btn-wrong {
+  opacity: 0.55;
+  outline: 3px solid transparent;
+}
+
+.btn-right.selected,
+.btn-wrong.selected {
+  opacity: 1;
+  outline-color: #fff;
+}
+
+button:disabled {
+  background: #666;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* ---------- Start screen ---------- */
+#setup {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.setup-box {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  background: var(--dark-blue);
+  border: 3px solid var(--gold);
+  border-radius: 16px;
+}
+
+.setup-section h2 {
+  margin: 0 0 12px;
+  color: var(--gold);
+  font-size: 1.3rem;
+}
+
+.setup-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.setup-row input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--gold);
+}
+
+.setup-extra {
+  margin-left: auto;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+#team-names {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+select,
+input[type="text"],
+input[type="number"] {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 6px 10px;
+  color: #fff;
+  background: #000;
+  border: 2px solid var(--gold);
+  border-radius: 6px;
+}
+
+input[type="number"] {
+  width: 90px;
+}
+
+input:disabled {
+  opacity: 0.4;
+}
+
+#start-btn {
+  font-size: 1.4rem;
+  padding: 14px;
+}
+
+/* ---------- Timer ---------- */
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.timer-bar {
+  flex: 1;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.timer-fill {
+  height: 100%;
+  background: var(--gold);
+  transition: width 1s linear, background 0.3s;
+}
+
+.timer-text {
+  min-width: 60px;
+  font-size: 1.8rem;
+  color: var(--gold);
+}
+
+/* The last five seconds turn red */
+.timer.warning .timer-fill {
+  background: #ff4136;
+}
+
+.timer.warning .timer-text {
+  color: #ff4136;
+}
+
+.timer.expired .timer-text {
+  color: #ff4136;
+  min-width: auto;
+}
+
+/* ---------- Daily Double ---------- */
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dd-title {
+  font-size: 4.5rem;
+  color: var(--gold);
+  text-shadow: 4px 4px 0 #000;
+  animation: pop 0.6s ease-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.3) rotate(-8deg); opacity: 0; }
+}
+
+.stage-label {
+  font-size: 1.2rem;
+}
+
+.choice-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.choice {
+  background: var(--dark-blue);
+  color: #fff;
+  border: 2px solid var(--gold);
+}
+
+.choice.selected {
+  background: var(--gold);
+  color: #000;
+}
+
+.wager-input {
+  font-size: 1.4rem;
+  width: 120px;
+  text-align: center;
+}
+
+.hint {
+  min-height: 1.2em;
+  color: #ffb3ad;
+  font-family: Arial, sans-serif;
+}
+
+/* ---------- Final round and winner ---------- */
+.final-label {
+  color: var(--gold);
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+
+.final-category {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 #000;
+}
+
+.final-question {
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 #000;
+}
+
+.final-answer {
+  font-size: 2.4rem;
+  color: var(--gold);
+  text-shadow: 3px 3px 0 #000;
+}
+
+.final-teams {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.final-teams small {
+  font-family: Arial, sans-serif;
+  color: #ccc;
+}
+
+.winner-name {
+  font-size: 4rem;
+  color: var(--gold);
+  text-shadow: 4px 4px 0 #000;
+  animation: pop 0.6s ease-out;
+}
+
+.ranking {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 420px;
+  list-style: none;
+  counter-reset: place;
+}
+
+.ranking li {
+  counter-increment: place;
+  display: flex;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 1.3rem;
+}
+
+.ranking li::before {
+  content: counter(place) ".";
+  color: #aaa;
+}
+
+.ranking li.top {
+  color: var(--gold);
+}
+
+.ranking-score {
+  margin-left: auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  h1 { font-size: 2rem; }
+  .category { font-size: 0.7rem; min-height: 50px; }
+  .tile { font-size: 1.1rem; min-height: 60px; }
+  #modal-question { font-size: 1.6rem; }
+  #modal-answer { font-size: 1.3rem; }
+  .dd-title, .winner-name { font-size: 2.4rem; }
+  .final-category, .final-question { font-size: 1.6rem; }
+  .final-answer { font-size: 1.3rem; }
+  .setup-box { padding: 20px 16px; }
+  .setup-extra { margin-left: 32px; }
+}
