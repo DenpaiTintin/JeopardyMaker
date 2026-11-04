@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9a5a"/>
+      <stop offset="0.6" stop-color="#ffd27a"/>
+      <stop offset="1" stop-color="#ffe9b0"/>
+    </linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a7bd5"/>
+      <stop offset="1" stop-color="#16325c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1150" cy="330" r="120" fill="#fff4c2"/>
+  <polygon points="0,620 260,300 480,560 700,240 980,600 1200,380 1600,640 1600,900 0,900" fill="#5b4a7a"/>
+  <polygon points="700,240 770,330 740,320 700,360 660,320 630,330" fill="#fff"/>
+  <polygon points="260,300 320,380 290,370 260,400 230,370 200,380" fill="#fff"/>
+  <polygon points="0,700 300,560 600,680 900,560 1250,690 1600,600 1600,900 0,900" fill="#2e6b3a"/>
+  <rect y="740" width="1600" height="160" fill="url(#lake)"/>
+  <rect x="1050" y="760" width="200" height="8" fill="#fff4c2" opacity="0.6"/>
+  <rect x="1090" y="790" width="120" height="6" fill="#fff4c2" opacity="0.4"/>
+  <g fill="#1d4a27">
+    <polygon points="120,740 160,620 200,740"/>
+    <polygon points="190,740 230,600 270,740"/>
+    <polygon points="1380,740 1420,630 1460,740"/>
+    <polygon points="1450,740 1490,600 1530,740"/>
+  </g>
+  <text x="800" y="140" text-anchor="middle" font-family="Arial Black, Arial" font-size="70"
+        fill="#5b2a00" opacity="0.5">PLASSHOLDER-PUSLESPILL</text>
+</svg>

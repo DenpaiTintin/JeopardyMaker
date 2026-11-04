@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <defs>
+    <radialGradient id="g" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0" stop-color="#3b2a8f"/>
+      <stop offset="1" stop-color="#0b0630"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <g fill="#ffcc00" opacity="0.18">
+    <polygon points="800,0 860,900 740,900"/>
+    <polygon points="800,0 1300,900 1180,900"/>
+    <polygon points="800,0 420,900 300,900"/>
+  </g>
+  <text x="800" y="830" text-anchor="middle" font-family="Arial Black, Arial" font-size="90"
+        fill="#fff" opacity="0.25">PLASSHOLDER: FINALE</text>
+</svg>
